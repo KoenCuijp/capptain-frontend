@@ -50,8 +50,8 @@ export default function () {
                                     <h2 className="d-inline-block">{match.opponent}</h2>&nbsp;&nbsp;
                                     <Badge
                                         className="rounded-pill align-top"
-                                        bg={match.homeMatch ? 'primary' : 'secondary'}>
-                                        {match.homeMatch ? 'Home' : 'Away'}
+                                        bg={match.homeMatch ? 'blue' : 'grey'}>
+                                        {match.homeMatch ? 'HOME' : 'AWAY'}
                                     </Badge>
                                 </Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted"><h3>{match.date}</h3></Card.Subtitle>

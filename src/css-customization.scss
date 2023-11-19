@@ -11,10 +11,11 @@ $primary: #4DA167;
 $secondary: #FCBA04;
 
 $light-green: #93E5AB;
-$dark-green: #4682b4;
+$dark-green: #4DA167;
 $grey: #61707D;
 $black: #000000;
 $yellow: #FCBA04;
+$blue: #42A9EE;
 $body-bg: #fff;
 
 // Coloured backgrounds
@@ -67,6 +68,12 @@ $body-bg: #fff;
 $theme-colors: (
     primary: $primary,
     secondary: $secondary,
+    light-green: $light-green,
+    dark-green: $dark-green,
+    grey: $grey,
+    black: $black,
+    yellow: $yellow,
+    blue: $blue,
     body-bg: $body-bg,
 );
 
