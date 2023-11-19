@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card, Badge, ListGroup } from 'react-bootstrap';
+import SignupStatusBar from './MatchSignupStatusBar';
 
 const currentTeam = 'Sterrenwijk Zondag 6'
 
@@ -50,14 +51,23 @@ export default function () {
                                     <h2 className="d-inline-block">{match.opponent}</h2>&nbsp;&nbsp;
                                     <Badge
                                         className="rounded-pill align-top"
-                                        bg={match.homeMatch ? 'blue' : 'grey'}>
+                                        bg={match.homeMatch ? 'blue' : 'danger'}>
                                         {match.homeMatch ? 'HOME' : 'AWAY'}
                                     </Badge>
                                 </Card.Title>
                                 <Card.Subtitle className="mb-2 text-muted"><h3>{match.date}</h3></Card.Subtitle>
                                 <Row>
+                                    <Col key={match.id}>
+                                        <SignupStatusBar
+                                            joining={match.playersJoining.length}
+                                            notJoining={match.playersNotJoining.length}
+                                            pending={match.playersPending.length}
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
                                     <Col key={1} md={4}>
-                                        <Card.Subtitle className="mt-3 mb-2"><Badge bg={'primary'}>Joining</Badge></Card.Subtitle>
+                                        <Card.Subtitle className="mt-3 mb-2"><Badge bg={'dark-green'}>Joining</Badge></Card.Subtitle>
                                         <ListGroup variant="flush">
                                             {match.playersJoining.map((player, index) => (
                                                 <ListGroup.Item key={index}>{player}</ListGroup.Item>
@@ -65,7 +75,7 @@ export default function () {
                                         </ListGroup>
                                     </Col>
                                     <Col key={2} md={4}>
-                                        <Card.Subtitle className="mt-3 mb-2"><Badge bg={'danger'}>Not joining</Badge></Card.Subtitle>
+                                        <Card.Subtitle className="mt-3 mb-2"><Badge bg={'grey'}>Not joining</Badge></Card.Subtitle>
                                         <ListGroup variant="flush">
                                             {match.playersNotJoining.map((player, index) => (
                                                 <ListGroup.Item key={index}>{player}</ListGroup.Item>

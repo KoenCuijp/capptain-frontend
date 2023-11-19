@@ -65,6 +65,11 @@ $body-bg: #fff;
     border-color: $yellow;
 }
 
+// Components customization
+.progress-thick {
+    height: 20px;
+}
+
 $theme-colors: (
     primary: $primary,
     secondary: $secondary,
