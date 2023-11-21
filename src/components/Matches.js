@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Card, Badge, ListGroup } from 'react-bootstrap';
+import { Container, Row, Col, Collapse, Card, Badge, ListGroup } from 'react-bootstrap';
 import SignupStatusBar from './MatchSignupStatusBar';
 
 const currentTeam = 'Sterrenwijk Zondag 6'
@@ -8,7 +8,7 @@ const currentTeam = 'Sterrenwijk Zondag 6'
 const upcomingMatches = [
     {
         id: 1,
-        date: '2023-11-20',
+        date: '20 Nov',
         homeMatch: true,
         opponent: 'Rentable FC 1',
         playersJoining: ['Sybren', 'Max', 'Mans', 'Bram', 'Igor'],
@@ -48,14 +48,20 @@ export default function () {
                         <Card className='text-center'>
                             <Card.Body>
                                 <Card.Title>
-                                    <h2 className="d-inline-block">{match.opponent}</h2>&nbsp;&nbsp;
-                                    <Badge
-                                        className="rounded-pill align-top"
-                                        bg={match.homeMatch ? 'blue' : 'danger'}>
-                                        {match.homeMatch ? 'HOME' : 'AWAY'}
-                                    </Badge>
+                                    <Row>
+                                        <Col key={1} md={2} className='border-right-5 border-dark'>
+                                            <h3>{match.date}</h3>
+                                        </Col>
+                                        <Col key={2}>
+                                            <h2 className="d-inline-block">{match.opponent}</h2>&nbsp;&nbsp;
+                                            <Badge
+                                                className="rounded-pill align-top"
+                                                bg={match.homeMatch ? 'dark-blue' : 'dark'}>
+                                                {match.homeMatch ? 'HOME' : 'AWAY'}
+                                            </Badge>
+                                        </Col>
+                                    </Row>
                                 </Card.Title>
-                                <Card.Subtitle className="mb-2 text-muted"><h3>{match.date}</h3></Card.Subtitle>
                                 <Row>
                                     <Col key={match.id}>
                                         <SignupStatusBar
@@ -65,32 +71,37 @@ export default function () {
                                         />
                                     </Col>
                                 </Row>
-                                <Row>
-                                    <Col key={1} md={4}>
-                                        <Card.Subtitle className="mt-3 mb-2"><Badge bg={'dark-green'}>Joining</Badge></Card.Subtitle>
-                                        <ListGroup variant="flush">
-                                            {match.playersJoining.map((player, index) => (
-                                                <ListGroup.Item key={index}>{player}</ListGroup.Item>
-                                            ))}
-                                        </ListGroup>
-                                    </Col>
-                                    <Col key={2} md={4}>
-                                        <Card.Subtitle className="mt-3 mb-2"><Badge bg={'grey'}>Not joining</Badge></Card.Subtitle>
-                                        <ListGroup variant="flush">
-                                            {match.playersNotJoining.map((player, index) => (
-                                                <ListGroup.Item key={index}>{player}</ListGroup.Item>
-                                            ))}
-                                        </ListGroup>
-                                    </Col>
-                                    <Col key={3} md={4}>
-                                        <Card.Subtitle className="mt-3 mb-2"><Badge bg={'warning'}>Not responded</Badge></Card.Subtitle>
-                                        <ListGroup variant="flush">
-                                            {match.playersPending.map((player, index) => (
-                                                <ListGroup.Item key={index}>{player}</ListGroup.Item>
-                                            ))}
-                                        </ListGroup>
-                                    </Col>
-                                </Row>
+                                <a class="btn btn-primary" data-toggle="collapse" href="#expandcollapse" aria-expanded="false" aria-controls="expandcollapse">
+                                    Click to expand/collapse
+                                </a>
+                                <Collapse id={"expandcollapse"}>
+                                    <Row>
+                                        <Col key={1} md={4}>
+                                            <Card.Subtitle className="mt-3 mb-2"><Badge bg={'dark-green'}>Joining</Badge></Card.Subtitle>
+                                            <ListGroup variant="flush">
+                                                {match.playersJoining.map((player, index) => (
+                                                    <ListGroup.Item key={index}>{player}</ListGroup.Item>
+                                                ))}
+                                            </ListGroup>
+                                        </Col>
+                                        <Col key={2} md={4}>
+                                            <Card.Subtitle className="mt-3 mb-2"><Badge bg={'grey'}>Not joining</Badge></Card.Subtitle>
+                                            <ListGroup variant="flush">
+                                                {match.playersNotJoining.map((player, index) => (
+                                                    <ListGroup.Item key={index}>{player}</ListGroup.Item>
+                                                ))}
+                                            </ListGroup>
+                                        </Col>
+                                        <Col key={3} md={4}>
+                                            <Card.Subtitle className="mt-3 mb-2"><Badge bg={'warning'}>Not responded</Badge></Card.Subtitle>
+                                            <ListGroup variant="flush">
+                                                {match.playersPending.map((player, index) => (
+                                                    <ListGroup.Item key={index}>{player}</ListGroup.Item>
+                                                ))}
+                                            </ListGroup>
+                                        </Col>
+                                    </Row>
+                                </Collapse>
                             </Card.Body>
                         </Card>
                     </Col>
