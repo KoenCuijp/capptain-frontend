@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Image, Menu, MenuItem, MenuIcon } from "@chakra-ui/react"
+import { Box, Heading, Text, Image } from "@chakra-ui/react"
 
 export function Header() {
     return (

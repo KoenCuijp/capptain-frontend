@@ -1,4 +1,4 @@
-import { Text, Box, Flex, Heading, Divider, Badge } from "@chakra-ui/react"
+import { Text, Box, Flex, Heading, Divider } from "@chakra-ui/react"
 import { MatchData } from './types';
 import { PlayerCounter } from "./PlayerCounter";
 import { EventBadge } from "./EventBadge";
