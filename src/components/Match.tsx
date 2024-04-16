@@ -1,6 +1,7 @@
-import { Text, Box, Flex, Heading, Divider, CircularProgress, CircularProgressLabel } from "@chakra-ui/react"
+import { Text, Box, Flex, Heading, Divider, Badge } from "@chakra-ui/react"
 import { MatchData } from './types';
 import { PlayerCounter } from "./PlayerCounter";
+import { EventBadge } from "./EventBadge";
 
 // A Match component has 1 property you can pass; matchData
 interface MatchProps {
@@ -26,13 +27,15 @@ export function Match(matchProps: MatchProps) {
         <Box
             as="section"
             background="white"
-            padding="60px"
+            padding="30px"
             padding-top="20px"
             rounded="lg"
             minWidth="2xl"
             textAlign="center"
             boxShadow="lg"
+            position="relative" // allows positioning Badge relative to this Box
         >
+            <EventBadge homeGame={homeGame} />
             <Heading as="h2" fontSize={["lg", "xl", "3xl"]}>{homeTeam} - {awayTeam}</Heading>
             <Text fontWeight="500" fontSize={["lg", "xl", "xl"]} mt="2">{matchData.date}</Text>
             <Text>Starts: {matchData.starts_at} | Meet: {matchData.meet_at}</Text>
@@ -43,14 +46,14 @@ export function Match(matchProps: MatchProps) {
                 <PlayerCounter
                     playerCount={matchData.joining}
                     totalCount={totalPlayers}
-                    color="capptain.green"
+                    color="capptain.darkgreen"
                     width="25%"
                     label="Joining"
                 />
                 <PlayerCounter
                     playerCount={matchData.not_joining}
                     totalCount={totalPlayers}
-                    color="capptain.red"
+                    color="capptain.pink"
                     width="25%"
                     label="Not joining"
                 />

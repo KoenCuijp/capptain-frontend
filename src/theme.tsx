@@ -6,7 +6,7 @@ const theme = extendTheme({
             yellow: "#fde24d",
             darkgreen: "#047d27",
             green: "#00a651",
-            red: "#e60000",
+            pink: "#ff007f",
             black: "#000000",
             grey: "#f2f2f2",
             darkgrey: "#333333",
