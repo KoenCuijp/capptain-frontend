@@ -12,15 +12,15 @@ export function Match(matchProps: MatchProps) {
     let matchData = matchProps.matchData
 
     let homeGame = matchData.home_away == 'H'
-    let currentTeam = "Sterrenwijk 6"
+    let currentTeam = matchData.team
     let opponent = matchData.opponent
     let homeTeam = homeGame ? currentTeam : opponent
     let awayTeam = homeGame ? opponent : currentTeam
     let totalPlayers = (
-        matchData.joining +
-        matchData.not_joining +
-        matchData.spectating +
-        matchData.no_answer
+        matchData.joining_players.length +
+        matchData.not_joining_players.length +
+        matchData.spectating_players.length +
+        matchData.no_answer_players.length
     )
 
     return (
@@ -44,28 +44,28 @@ export function Match(matchProps: MatchProps) {
 
             <Flex justifyContent="space-between" width="80%" mx="auto" textAlign="center">
                 <PlayerCounter
-                    playerCount={matchData.joining}
+                    playerCount={matchData.joining_players.length}
                     totalCount={totalPlayers}
                     color="capptain.darkgreen"
                     width="25%"
                     label="Joining"
                 />
                 <PlayerCounter
-                    playerCount={matchData.not_joining}
+                    playerCount={matchData.not_joining_players.length}
                     totalCount={totalPlayers}
                     color="capptain.pink"
                     width="25%"
                     label="Not joining"
                 />
                 <PlayerCounter
-                    playerCount={matchData.spectating}
+                    playerCount={matchData.spectating_players.length}
                     totalCount={totalPlayers}
                     color="capptain.yellow"
                     width="25%"
                     label="Spectating"
                 />
                 <PlayerCounter
-                    playerCount={matchData.no_answer}
+                    playerCount={matchData.no_answer_players.length}
                     totalCount={totalPlayers}
                     color="capptain.darkgrey"
                     width="25%"
