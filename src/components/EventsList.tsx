@@ -20,6 +20,7 @@ interface Match {
     updated_at: string
 }
 
+// TODO (Issue #6): Refactor using React Query
 async function fetchMatches(page: number = 1, abortController: AbortController | null = null) {
     const endpoint = `${import.meta.env.VITE_BACKEND_URL}/matches`;
     const response = await fetch(endpoint, { signal: abortController?.signal });
@@ -60,11 +61,13 @@ export function EventsList() {
         }
     }, []);
 
+    // TODO (Issue #7): Add loading spinner
     if (isLoading) {
         console.log("Loading...");
         return <h1>LOADING....</h1>;
     }
 
+    // TODO (Issue #7): Add error handlingß
     if (error) {
         console.error("Error: ", error);
         return <h1>ERROR!</h1>;
