@@ -1,55 +1,83 @@
+import React, { useEffect, useRef, useState } from "react";
 import { VStack, Box } from "@chakra-ui/react"
 import { Match } from "./Match"
 
-let matchesData = [
-    {
-        'opponent': 'Rivierwijkers 2',
-        'home_away': 'H',
-        'location': 'Sportpark Sterrenwijk',
-        'date': '17-04-2024',
-        'meet_at': '12:15',
-        'starts_at': '13:00',
-        "id": "1",
-        "joining": 13,
-        "not_joining": 7,
-        "spectating": 1,
-        "no_answer": 5,
-    },
-    {
-        'opponent': 'Sterrenwijk 2',
-        'home_away': 'A',
-        'location': 'Sportpark Sterrenwijk',
-        'date': '24-04-2024',
-        'meet_at': '11:15',
-        'starts_at': '12:00',
-        "id": "2",
-        "joining": 10,
-        "not_joining": 6,
-        "spectating": 2,
-        "no_answer": 8,
-    },
-    {
-        'opponent': 'PVC 4',
-        'home_away': 'A',
-        'location': 'Sportpark Sterrenwijk',
-        'date': '17-04-2024',
-        'meet_at': '09:15',
-        'starts_at': '10:00',
-        "id": "3",
-        "joining": 8,
-        "not_joining": 5,
-        "spectating": 1,
-        "no_answer": 12,
-    },
 
-]
+interface Match {
+    id: number,
+    team: string,
+    joining_players: string[],
+    not_joining_players: string[],
+    spectating_players: string[],
+    no_answer_players: string[],
+    opponent: string,
+    home_away: string,
+    location: string,
+    date: string,
+    meet_at: string,
+    starts_at: string,
+    created_at: string,
+    updated_at: string
+}
+
+// TODO (Issue #6): Refactor using React Query
+async function fetchMatches(page: number = 1, abortController: AbortController | null = null) {
+    const endpoint = `${import.meta.env.VITE_BACKEND_URL}/matches`;
+    const response = await fetch(endpoint, { signal: abortController?.signal });
+    const matches = (await response.json()) as Match[];
+
+    return matches;
+}
 
 export function EventsList() {
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState();
+    const [matches, setMatches] = useState<Match[]>([]);
+    const [page, setPage] = useState(1);
+
+    const abortControllerRef = useRef<AbortController | null>(null);
+
+    useEffect(() => {
+        // Cancel any previous ongoing fetches, we're doing a new request
+        abortControllerRef.current?.abort();
+        abortControllerRef.current = new AbortController();
+
+        const fetchAndRender = async () => {
+            const matchesData = await fetchMatches(page, abortControllerRef.current);
+            setMatches(matchesData);
+        }
+        try {
+            fetchAndRender();
+        }
+        catch (e: any) {
+            if (e.name == "AbortError") {
+                console.log("Previous request aborted");
+                return;
+            }
+            setError(e);
+        }
+        finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    // TODO (Issue #7): Add loading spinner
+    if (isLoading) {
+        console.log("Loading...");
+        return <h1>LOADING....</h1>;
+    }
+
+    // TODO (Issue #7): Add error handlingß
+    if (error) {
+        console.error("Error: ", error);
+        return <h1>ERROR!</h1>;
+    }
+
     return (
-        <VStack mt="-90px" spacing="8">
-            {matchesData.map((matchData) => (
-                <Box key={matchData.id}>
-                    <Match matchData={matchData} />
+        <VStack mt="-90px" mb="90px" spacing="8">
+            {matches.map((match) => (
+                <Box key={match.id}>
+                    <Match matchData={match} />
                 </Box>
             )
             )}
