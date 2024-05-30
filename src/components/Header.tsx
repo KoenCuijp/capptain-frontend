@@ -1,4 +1,10 @@
-import { Box, Heading, Text, Image } from "@chakra-ui/react"
+import {
+    Box,
+    Heading,
+    Image,
+    Text,
+  } from '@chakra-ui/react'
+
 
 export function Header() {
     return (
@@ -26,7 +32,7 @@ export function Header() {
             <Heading
                 fontWeight="extrabold"
                 fontSize={["3xl", "3xl", "5xl"]}
-                mt="120px"
+                mt="30px"
             >upcoming team events</Heading>
             <Text fontWeight="medium" fontSize={["lg", "lg", "2xl"]} >be there or be square.</Text>
         </Box>

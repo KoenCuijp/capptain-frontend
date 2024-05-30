@@ -8,7 +8,7 @@ export function EventBadge(props: EventBadgeProps) {
     return (
         <Badge
             variant={props.homeGame ? "solid" : "subtle"}
-            colorScheme={props.homeGame ? "green" : "pink"}
+            colorScheme={props.homeGame ? "teal" : "pink"}
             fontSize={["xs", "sm", "md"]}
             padding={["1", "1", "2"]}
             position="absolute"
