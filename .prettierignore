@@ -1,0 +1,5 @@
+# Ignore for prettier:
+public
+node_modules
+build
+coverage
