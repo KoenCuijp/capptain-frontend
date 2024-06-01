@@ -17,7 +17,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import './main.css'
 import { EventsList } from './components/EventsList';
-import { fetchMatches } from './api/backend'
+import { fetchMatches, createMatch } from './api/backend'
 
 // React router, see: https://reactrouter.com/en/main/start/tutorial
 const router = createBrowserRouter([
@@ -30,6 +30,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <EventsList />,
         loader: fetchMatches,
+        action: createMatch,
       },
       {
         path: "/matches/:matchId",

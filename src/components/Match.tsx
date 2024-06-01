@@ -19,11 +19,7 @@ import {
     useDisclosure,
     VStack,
 } from '@chakra-ui/react';
-import { useQueryClient } from '@tanstack/react-query';
-
-import {useMutation} from '@tanstack/react-query';
-
-import { createMatch } from '../api/backend'
+import { useSubmit } from "react-router-dom";
 import { MatchData, MatchFormFields } from './types';
 import { PlayerCounter } from "./PlayerCounter";
 import { EventBadge } from "./EventBadge";
@@ -102,7 +98,7 @@ export function Match(matchProps: MatchProps) {
 }
 
 export function CreateMatchModal() {
-    const queryClient = useQueryClient()
+    const submitForm = useSubmit();
 
     const { 
         register, 
@@ -113,20 +109,16 @@ export function CreateMatchModal() {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const onSubmitHandler: SubmitHandler<MatchFormFields> = async (data) => {
-        // Update the backend & invalidate the frontend
-        mutation.mutate(data);
+        // Trigger the submit that React Router expects:
+        // https://github.com/orgs/react-hook-form/discussions/9910#discussioncomment-9627947
+        submitForm(data, {
+            method: "POST",
+            action: "/",
+            encType: "application/json",
+    });
         // Close the Modal element
         onClose();
     }
-
-    // Create match mutation
-    const mutation = useMutation({
-        mutationFn: createMatch,
-        onSuccess: () => {
-            // Invalidate & refetch matches
-            queryClient.invalidateQueries({ queryKey: ['matches'] })
-        },
-    })
 
     return (
         <>

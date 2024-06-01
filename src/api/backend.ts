@@ -1,4 +1,4 @@
-import { MatchData, MatchFormFields } from '../components/types'
+import { MatchData } from '../components/types'
 
 // TODO (Issue #9): Use aixos instead of fetch
 export async function fetchMatches() {
@@ -10,17 +10,15 @@ export async function fetchMatches() {
 }
 
 // TODO (Issue #9): Use aixos instead of fetch
-export async function createMatch(data: MatchFormFields, abortController: AbortController | null = null) {
+export async function createMatch({request}: {request: Request}) {
+    const matchFormData = await request.json();
     const endpoint = `${import.meta.env.VITE_BACKEND_URL}/create-match`;
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-        signal: abortController?.signal
+        body: JSON.stringify(matchFormData),
+
     }
-    console.log(requestOptions);
     const response = await fetch(endpoint, requestOptions);
-    console.log(response);
-    console.log(response.status);
-    console.log(response.json());
+    return response.json();
 }
