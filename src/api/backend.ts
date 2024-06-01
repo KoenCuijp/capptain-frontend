@@ -1,9 +1,9 @@
 import { MatchData, MatchFormFields } from '../components/types'
 
 // TODO (Issue #9): Use aixos instead of fetch
-export async function fetchMatches(page: number = 1, abortController: AbortController | null = null) {
+export async function fetchMatches() {
     const endpoint = `${import.meta.env.VITE_BACKEND_URL}/matches`;
-    const response = await fetch(endpoint, { signal: abortController?.signal });
+    const response = await fetch(endpoint);
     const matches = (await response.json()) as MatchData[];
 
     return matches;

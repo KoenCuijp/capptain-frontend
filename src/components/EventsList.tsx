@@ -1,8 +1,5 @@
 import { Box, VStack } from '@chakra-ui/react';
-
-import { useQuery } from '@tanstack/react-query';
-
-import { fetchMatches } from '../api/backend'
+import { useLoaderData } from 'react-router-dom';
 import { Match, CreateMatchModal } from "./Match"
 
 
@@ -24,14 +21,12 @@ interface Match {
 }
 
 export function EventsList() {
-
-    // Get all matches query
-    const matchesQuery = useQuery({ queryKey: ['matches'], queryFn: fetchMatches })
+    const matches = useLoaderData() as Match[];
 
     return (
         <VStack mt="-180px" mb="90px" spacing="8">
             <CreateMatchModal />
-            {matchesQuery.data?.map((match) => (
+            {matches.map((match) => (
                 <Box key={match.id}>
                     <Match matchData={match} />
                 </Box>
